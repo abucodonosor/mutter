@@ -9,10 +9,6 @@ Version: 2.27.1
 Release: %mkrel 1
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
-#gw http://bugzilla.gnome.org/show_bug.cgi?id=562106
-Patch0: metacity-2.25.55-disable-werror.patch
-# (fc) 2.21.3-2mdv enable compositor by default
-Patch4: metacity-enable-compositor.patch
 License: GPLv2+
 Group: Graphical desktop/GNOME
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -63,15 +59,9 @@ files to allow you to develop with Mutter.
 
 %prep
 %setup -q
-%patch0 -p1 -b .werror
-# don't enable compositor by default, too many drivers are buggy currently
-#%patch4 -p1 -b .enable-compositor
-
-#needed by patch 0
-autoconf
 
 %build
-#needed for gobject-introspection build
+#needed for gobject-introspection build in 2.27.1
 %define _disable_ld_as_needed 1
 %configure2_5x 
 %make
