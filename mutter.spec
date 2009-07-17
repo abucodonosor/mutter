@@ -32,7 +32,7 @@ BuildRequires: zenity
 BuildRequires: intltool
 BuildRequires: gnome-doc-utils
 BuildRequires: libcanberra-devel
-BuildRequires: gobject-introspection-devel
+BuildRequires: gobject-introspection-devel gir-repository
 BuildRequires: clutter-devel >= 0.9.3
 
 
