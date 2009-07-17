@@ -3,16 +3,14 @@
 %define libnamedev %mklibname -d %{name}-private
 %define startup_notification_version 0.4
 
-Summary: Metacity window manager
-Name: metacity
-Version: 2.27.0
+Summary: Mutter window manager
+Name: mutter
+Version: 2.27.1
 Release: %mkrel 1
-URL: http://ftp.gnome.org/pub/gnome/sources/metacity/
-Source0: http://ftp.gnome.org/pub/GNOME/sources/metacity/%{name}-%{version}.tar.bz2
+URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
+Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
 #gw http://bugzilla.gnome.org/show_bug.cgi?id=562106
 Patch0: metacity-2.25.55-disable-werror.patch
-# (fc) 2.3.987-2mdk use Ia Ora as default theme
-Patch2: metacity-2.25.2-defaulttheme.patch
 # (fc) 2.21.3-2mdv enable compositor by default
 Patch4: metacity-enable-compositor.patch
 License: GPLv2+
@@ -34,23 +32,23 @@ BuildRequires: zenity
 BuildRequires: intltool
 BuildRequires: gnome-doc-utils
 BuildRequires: libcanberra-devel
-#gw libtool dep:
-BuildRequires: dbus-glib-devel
+BuildRequires: gobject-introspection-devel
+BuildRequires: clutter-devel >= 0.9.3
 
 
 %description
-Metacity is a simple window manager that integrates nicely with 
+Mutter is a simple window manager that integrates nicely with 
 GNOME 2.
 
 %package -n %{libname}
-Summary:        Libraries for Metacity
+Summary:        Libraries for Mutter
 Group:          System/Libraries
 
 %description -n %{libname}
-This package contains libraries used by Metacity.
+This package contains libraries used by Mutter.
 
 %package -n %{libnamedev}
-Summary:        Libraries and include files with Metacity
+Summary:        Libraries and include files with Mutter
 Group:          Development/GNOME and GTK+
 Requires:       %name = %{version}
 Requires:		%{libname} = %{version}
@@ -60,13 +58,12 @@ Obsoletes: %mklibname -d %{name}-private 0
 
 %description -n %{libnamedev}
 This package provides the necessary development libraries and include 
-files to allow you to develop with Metacity.
+files to allow you to develop with Mutter.
 
 
 %prep
 %setup -q
 %patch0 -p1 -b .werror
-%patch2 -p1 -b .defaulttheme
 # don't enable compositor by default, too many drivers are buggy currently
 #%patch4 -p1 -b .enable-compositor
 
@@ -74,7 +71,8 @@ files to allow you to develop with Metacity.
 autoconf
 
 %build
-
+#needed for gobject-introspection build
+%define _disable_ld_as_needed 1
 %configure2_5x 
 %make
 
@@ -87,62 +85,22 @@ GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%define schemas metacity
-
-# update default window theme on distribution upgrade
-%triggerpostun -- metacity < 2.26.0-3mdv
-if [ "x$META_CLASS" != "x" ]; then
- case "$META_CLASS" in
-  *server) METACITY_THEME="Ia Ora Gray" ;;
-  *desktop) METACITY_THEME="Ia Ora Arctic" ;;
-  *download) METACITY_THEME="Ia Ora Blue";;
- esac
-
-  if [ "x$METACITY_THEME" != "x" ]; then
-  %{_bindir}/gconftool-2 --config-source=xml::/etc/gconf/gconf.xml.local-defaults/ --direct --type=string --set /apps/metacity/general/theme "$METACITY_THEME" > /dev/null
-  fi
-fi
-
-%post
-%if %mdkversion < 200900
-%post_install_gconf_schemas %{schemas}
-%endif
-if [ ! -d %{_sysconfdir}/gconf/gconf.xml.local-defaults/apps/metacity/general -a "x$META_CLASS" != "x" ]; then
- case "$META_CLASS" in
-  *server) METACITY_THEME="Ia Ora Gray" ;;
-  *desktop) METACITY_THEME="Ia Ora Arctic" ;;
-  *download) METACITY_THEME="Ia Ora Blue";;
- esac
-
-  if [ "x$METACITY_THEME" != "x" ]; then 
-  %{_bindir}/gconftool-2 --config-source=xml::/etc/gconf/gconf.xml.local-defaults/ --direct --type=string --set /apps/metacity/general/theme "$METACITY_THEME" > /dev/null
-  fi
-fi
-
+%define schemas %name
 
 %preun
 %preun_uninstall_gconf_schemas %{schemas}
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
 
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc README COPYING NEWS HACKING 
 %{_sysconfdir}/gconf/schemas/*
 %{_bindir}/*
-%{_datadir}/gnome-control-center/keybindings/50-metacity*.xml
-%{_datadir}/applications/metacity.desktop
-%{_datadir}/gnome/wm-properties/metacity-wm.desktop
-%{_datadir}/metacity
-%dir %_datadir/gnome/help/creating-metacity-themes
-%_datadir/gnome/help/creating-metacity-themes/C
-%{_datadir}/themes/*
+%{_datadir}/applications/%name.desktop
+%{_datadir}/gnome/wm-properties/%name-wm.desktop
+%{_datadir}/%name
+%dir %_libdir/%name
+%dir %_libdir/%name/plugins
+%_libdir/%name/plugins/default.so
 %{_mandir}/man1/*
 
 %files -n %{libname}
@@ -157,3 +115,6 @@ fi
 %{_libdir}/*.la
 %{_includedir}/*
 %{_libdir}/pkgconfig/*
+%_libdir/%name/Meta-2.27.gir
+%_libdir/%name/Meta-2.27.typelib
+
