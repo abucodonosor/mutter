@@ -6,9 +6,10 @@
 Summary: Mutter window manager
 Name: mutter
 Version: 2.27.1
-Release: %mkrel 1
+Release: %mkrel 2
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
+Patch: mutter-2.27.1-clutter1.0.patch
 License: GPLv2+
 Group: Graphical desktop/GNOME
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -29,7 +30,7 @@ BuildRequires: intltool
 BuildRequires: gnome-doc-utils
 BuildRequires: libcanberra-devel
 BuildRequires: gobject-introspection-devel gir-repository
-BuildRequires: clutter-devel >= 0.9.3
+BuildRequires: clutter-devel >= 1.0
 
 
 %description
@@ -59,6 +60,8 @@ files to allow you to develop with Mutter.
 
 %prep
 %setup -q
+%patch -p1
+autoconf
 
 %build
 #needed for gobject-introspection build in 2.27.1
