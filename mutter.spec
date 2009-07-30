@@ -61,7 +61,7 @@ files to allow you to develop with Mutter.
 %prep
 %setup -q
 %patch -p1
-autoconf
+autoreconf -fi
 
 %build
 #needed for gobject-introspection build in 2.27.1
