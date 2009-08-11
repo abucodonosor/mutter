@@ -5,14 +5,10 @@
 
 Summary: Mutter window manager
 Name: mutter
-Version: 2.27.1
-Release: %mkrel 3
+Version: 2.27.2
+Release: %mkrel 1
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
-Patch: mutter-2.27.1-clutter1.0.patch
-#gw fix mutter not displaying anything
-#http://bugzilla.gnome.org/show_bug.cgi?id=589419
-Patch1: mutter-22184e61812adb0c34d9f5b712ecee65859157bb.patch
 License: GPLv2+
 Group: Graphical desktop/GNOME
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -63,13 +59,8 @@ files to allow you to develop with Mutter.
 
 %prep
 %setup -q
-%patch -p1
-%patch1 -p1
-autoreconf -fi
 
 %build
-#needed for gobject-introspection build in 2.27.1
-%define _disable_ld_as_needed 1
 %configure2_5x 
 %make
 
