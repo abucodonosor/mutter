@@ -6,7 +6,7 @@
 Summary: Mutter window manager
 Name: mutter
 Version: 2.27.2
-Release: %mkrel 1
+Release: %mkrel 2
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
 License: GPLv2+
@@ -94,6 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{libname}
 %defattr(-,root,root)
 %{_libdir}/*.so.%{lib_major}*
+%_libdir/%name/Meta-2.27.typelib
 
 %files -n %{libnamedev}
 %defattr(-,root,root)
@@ -104,5 +105,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %{_libdir}/pkgconfig/*
 %_libdir/%name/Meta-2.27.gir
-%_libdir/%name/Meta-2.27.typelib
 
