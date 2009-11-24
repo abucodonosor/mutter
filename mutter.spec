@@ -31,7 +31,7 @@ BuildRequires: gnome-doc-utils
 BuildRequires: libcanberra-devel
 BuildRequires: gobject-introspection-devel gir-repository
 BuildRequires: clutter-devel >= 1.0
-
+Requires:		%{libname} = %{version}
 
 %description
 Mutter is a simple window manager that integrates nicely with 
