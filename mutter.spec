@@ -7,7 +7,7 @@
 Summary: Mutter window manager
 Name: mutter
 Version: 2.28.0
-Release: %mkrel 1
+Release: %mkrel 2
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
 License: GPLv2+
