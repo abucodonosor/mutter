@@ -3,13 +3,14 @@
 %define libnamedev %mklibname -d %{name}-private
 %define startup_notification_version 0.4
 %define api 2.28
+%define git 20100211
 
 Summary: Mutter window manager
 Name: mutter
-Version: 2.28.0
-Release: %mkrel 2
+Version: 2.28.1
+Release: %mkrel -c %git 1
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
-Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
+Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{git}.tar.xz
 License: GPLv2+
 Group: Graphical desktop/GNOME
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -31,6 +32,7 @@ BuildRequires: gnome-doc-utils
 BuildRequires: libcanberra-devel
 BuildRequires: gobject-introspection-devel gir-repository
 BuildRequires: clutter-devel >= 1.0
+BuildRequires: gnome-common libtool
 Requires:		%{libname} = %{version}
 
 %description
@@ -59,7 +61,8 @@ files to allow you to develop with Mutter.
 
 
 %prep
-%setup -q
+%setup -q -n %name
+./autogen.sh
 
 %build
 %configure2_5x 
