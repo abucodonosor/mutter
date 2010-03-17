@@ -7,9 +7,11 @@
 Summary: Mutter window manager
 Name: mutter
 Version: 2.29.0
-Release: %mkrel 1
+Release: %mkrel 2
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
+# (fc) 2.29.0-2mdv fix build with latest clutter (GIT)
+Patch0: mutter-cogl_texture-deprecated.patch
 License: GPLv2+
 Group: Graphical desktop/GNOME
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -30,7 +32,7 @@ BuildRequires: intltool
 BuildRequires: gnome-doc-utils
 BuildRequires: libcanberra-devel
 BuildRequires: gobject-introspection-devel gir-repository
-BuildRequires: clutter-devel >= 1.0
+BuildRequires: clutter-devel >= 1.2
 BuildRequires: gnome-common libtool
 Requires:		%{libname} = %{version}
 
@@ -61,6 +63,7 @@ files to allow you to develop with Mutter.
 
 %prep
 %setup -q
+%patch0 -p1 -b .cogl_texture-deprecated
 
 %build
 %configure2_5x 
