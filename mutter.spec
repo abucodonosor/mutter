@@ -6,14 +6,10 @@
 
 Summary: Mutter window manager
 Name: mutter
-Version: 2.29.0
-Release: %mkrel 3
+Version: 2.29.1
+Release: %mkrel 1
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
-# (fc) 2.29.0-2mdv fix build with latest clutter (GIT)
-Patch0: mutter-cogl_texture-deprecated.patch
-# (fc) 2.29.0-3mdv remove workaround for old intel driver (GIT)
-Patch1: 0001-Remove-the-workaround-for-multi-texturing-with-old-i.patch
 License: GPLv2+
 Group: Graphical desktop/GNOME
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -65,8 +61,6 @@ files to allow you to develop with Mutter.
 
 %prep
 %setup -q
-%patch0 -p1 -b .cogl_texture-deprecated
-%patch1 -p1 -b .disable-intel-workaround
 
 %build
 %configure2_5x 
