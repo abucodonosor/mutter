@@ -26,7 +26,6 @@ Requires: zenity
 BuildRequires: libglade2.0-devel
 BuildRequires: libGConf2-devel >= 1.1.9
 BuildRequires: startup-notification-devel >= %{startup_notification_version}
-BuildRequires: libcanberra-devel
 BuildRequires: libgtop2.0-devel
 BuildRequires: libxinerama-devel
 BuildRequires: libxcomposite-devel
@@ -37,7 +36,7 @@ BuildRequires: GConf2
 BuildRequires: zenity
 BuildRequires: intltool
 BuildRequires: gnome-doc-utils
-BuildRequires: libcanberra-devel
+BuildRequires: libcanberra-gtk-devel
 BuildRequires: gobject-introspection-devel gir-repository
 BuildRequires: clutter-devel >= 1.2
 BuildRequires: gnome-common libtool
