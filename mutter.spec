@@ -1,46 +1,39 @@
 %define lib_major 0
-%define libname %mklibname %{name}-private %{lib_major}
-%define libnamedev %mklibname -d %{name}-private
-%define startup_notification_version 0.4
-%define api 2.29
+%define libname %mklibname %{name} %{lib_major}
+%define libnamedev %mklibname -d %{name}
+%define api 3.0
 
 Summary: Mutter window manager
 Name: mutter
-Version: 2.29.1
-Release: %mkrel 4
+Version: 3.0.0
+Release: %mkrel 1
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
-# (fc) 2.29.1-3mdv improves damage performance (GIT)
-Patch0: mutter-2.29.1-damages-performance.patch
-# (fc) 2.29.1-3mdv fix flashes when windows are created (GIT)
-Patch1: mutter-2.29.1-fix-flashes.patch
-# (fc) 2.30.1-2mdv ensure text is local encoded for Zenity (GNOME bug #617536)
-Patch2: mutter-2.29.1-local-encoding-for-zenity.patch
-# (fc) 2.29.1-4mdv prevent possible DOS with too much damage events (GIT)
-Patch3: mutter-2.29.1-fix-damages-dos.patch
-
 License: GPLv2+
 Group: Graphical desktop/GNOME
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-Requires: zenity
-BuildRequires: libglade2.0-devel
-BuildRequires: libGConf2-devel >= 1.1.9
-BuildRequires: startup-notification-devel >= %{startup_notification_version}
-BuildRequires: libgtop2.0-devel
-BuildRequires: libxinerama-devel
+BuildRequires: GL-devel
+BuildRequires: libice-devel
+BuildRequires: libsm-devel
+BuildRequires: libx11-devel
 BuildRequires: libxcomposite-devel
+BuildRequires: libxcursor-devel
 BuildRequires: libxdamage-devel
-BuildRequires: libxtst-devel
-BuildRequires: libmesaglu-devel
-BuildRequires: GConf2
+BuildRequires: libxext-devel
+BuildRequires: libxfixes-devel
+BuildRequires: libxinerama-devel
+BuildRequires: libxrandr-devel
+BuildRequires: libxrender-devel
+BuildRequires: atk-devel
+BuildRequires: gtk+3.0-devel
+BuildRequires: clutter-devel
+BuildRequires: libGConf2-devel GConf2
+BuildRequires: gobject-introspection-devel
+BuildRequires: startup-notification-devel
+BuildRequires: intltool gnome-doc-utils
 BuildRequires: zenity
-BuildRequires: intltool
-BuildRequires: gnome-doc-utils
-BuildRequires: libcanberra-gtk-devel
-BuildRequires: gobject-introspection-devel gir-repository
-BuildRequires: clutter-devel >= 1.2
-BuildRequires: gnome-common libtool
-Requires:		%{libname} = %{version}
+Requires: %{libname} = %{version}
+Requires: GConf2 zenity
 
 %description
 Mutter is a simple window manager that integrates nicely with 
@@ -49,6 +42,7 @@ GNOME 2.
 %package -n %{libname}
 Summary:        Libraries for Mutter
 Group:          System/Libraries
+Obsoletes:	%{_lib}mutter-private0 < %{version}
 
 %description -n %{libname}
 This package contains libraries used by Mutter.
@@ -57,10 +51,10 @@ This package contains libraries used by Mutter.
 Summary:        Libraries and include files with Mutter
 Group:          Development/GNOME and GTK+
 Requires:       %name = %{version}
-Requires:		%{libname} = %{version}
-Provides:		%{name}-devel = %{version}-%{release}
-Provides:		lib%{name}-private-devel = %{version}-%{release}
-Obsoletes: %mklibname -d %{name}-private 0
+Requires:	%{libname} = %{version}
+Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%mklibname -d %{name}-private 0
+Obsoletes:	%{_lib}mutter-private-devel < %{version}
 
 %description -n %{libnamedev}
 This package provides the necessary development libraries and include 
@@ -69,20 +63,14 @@ files to allow you to develop with Mutter.
 
 %prep
 %setup -q
-%patch0 -p1 -b .damages-performance
-%patch1 -p1 -b .fix-flashes
-%patch2 -p1 -b .local-encoding
-%patch3 -p1 -b .damage-dos
-
 
 %build
-%configure2_5x 
-#parallel build is broken
-make
+%configure2_5x --disable-static --disable-schemas-install --disable-scrollkeeper --enable-compile-warnings=no
+%make
 
 %install
 rm -rf $RPM_BUILD_ROOT %name.lang
-GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
+%makeinstall_std
 
 %find_lang %{name} 
 
@@ -116,9 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc ChangeLog
 %{_libdir}/*.so
-%{_libdir}/*.a
 %{_libdir}/*.la
 %{_includedir}/*
 %{_libdir}/pkgconfig/*
 %_libdir/%name/Meta-%api.gir
-
