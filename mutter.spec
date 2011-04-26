@@ -5,7 +5,7 @@
 
 Summary: Mutter window manager
 Name: mutter
-Version: 3.0.0
+Version: 3.0.1
 Release: %mkrel 1
 URL: http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0: http://ftp.gnome.org/pub/GNOME/sources/mutter/%{name}-%{version}.tar.bz2
