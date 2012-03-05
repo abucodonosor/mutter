@@ -55,6 +55,9 @@ Summary: GObject Introspection interface description for %{name}
 Group: System/Libraries
 Requires: %{libname} = %{version}-%{release}
 
+%description -n %{girname}
+GObject Introspection interface description for %{name}.
+
 %package -n %{develname}
 Summary:	Libraries and include files with Mutter
 Group:		Development/GNOME and GTK+
