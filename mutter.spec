@@ -6,7 +6,7 @@
 
 Summary: Mutter window manager
 Name: mutter
-Version: 3.2.2
+Version: 3.4.1
 Release: 1
 License: GPLv2+
 Group: Graphical desktop/GNOME
@@ -53,7 +53,6 @@ This package contains libraries used by Mutter.
 %package -n %{girname}
 Summary: GObject Introspection interface description for %{name}
 Group: System/Libraries
-Requires: %{libname} = %{version}-%{release}
 
 %description -n %{girname}
 GObject Introspection interface description for %{name}.
@@ -62,6 +61,7 @@ GObject Introspection interface description for %{name}.
 Summary:	Libraries and include files with Mutter
 Group:		Development/GNOME and GTK+
 Requires:	%{libname} = %{version}
+Requires:	%{girname} = %{version}
 Provides:	%{name}-devel = %{version}-%{release}
 Obsoletes:	%mklibname -d %{name}-private 0
 Obsoletes:	%{_lib}mutter-private-devel < %{version}
@@ -83,7 +83,6 @@ files to allow you to develop with Mutter.
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 %find_lang %{name} 
 
