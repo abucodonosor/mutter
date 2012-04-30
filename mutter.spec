@@ -76,7 +76,6 @@ files to allow you to develop with Mutter.
 %build
 %configure2_5x \
 	--disable-static \
-	--disable-schemas-install \
 	--disable-scrollkeeper \
 	--enable-compile-warnings=no
 
@@ -88,7 +87,6 @@ files to allow you to develop with Mutter.
 
 %files -f %{name}.lang
 %doc README COPYING NEWS HACKING 
-%{_sysconfdir}/gconf/schemas/*
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/gnome/wm-properties/%{name}-wm.desktop
