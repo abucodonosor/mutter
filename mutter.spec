@@ -89,6 +89,9 @@ files to allow you to develop with Mutter.
 %doc README COPYING NEWS HACKING 
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/GConf/gsettings/mutter-schemas.convert
+%{_datadir}/glib-2.0/schemas/org.gnome.mutter.gschema.xml
+%{_datadir}/gnome-control-center/keybindings/*.xml
 %{_datadir}/gnome/wm-properties/%{name}-wm.desktop
 %{_datadir}/%{name}
 %dir %{_libdir}/%{name}
