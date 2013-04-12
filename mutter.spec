@@ -3,6 +3,7 @@
 %define libname %mklibname %{name} %{major}
 %define girname %mklibname %{name}-gir %{gir_major}
 %define develname %mklibname -d %{name}
+%define _disable_ld_no_undefined 1
 
 Summary:	Mutter window manager
 Name:		mutter
