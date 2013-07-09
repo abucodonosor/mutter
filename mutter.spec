@@ -108,6 +108,7 @@ files to allow you to develop with Mutter.
 
 %files -n %{develname}
 %doc ChangeLog
+%doc %{_datadir}/gtk-doc/html/meta
 %{_libdir}/*.so
 %{_includedir}/*
 %{_libdir}/pkgconfig/*
