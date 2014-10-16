@@ -9,8 +9,8 @@
 
 Summary:	Mutter window manager
 Name:		mutter
-Version:	3.8.3
-Release:	7
+Version:	3.14.1
+Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://ftp.gnome.org/pub/gnome/sources/mutter/
@@ -20,7 +20,6 @@ BuildRequires:	intltool
 BuildRequires:	zenity
 BuildRequires:	pkgconfig(cairo)
 BuildRequires:	pkgconfig(clutter-1.0)
-BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gio-2.0)
@@ -36,8 +35,9 @@ BuildRequires:	pkgconfig(xcomposite)
 BuildRequires:	pkgconfig(xcursor)
 BuildRequires:	pkgconfig(xdamage)
 BuildRequires:	pkgconfig(xfixes)
+BuildRequires:	pkgconfig(xkbcommon)
+BuildRequires:	pkgconfig(xkbcommon-x11)
 BuildRequires:	pkgconfig(xrender)
-Requires:	GConf2
 Requires:	zenity
 
 %description
@@ -73,8 +73,7 @@ files to allow you to develop with Mutter.
 %setup -q
 
 %build
-%configure2_5x \
-	--disable-static \
+%configure \
 	--disable-scrollkeeper \
 	--enable-compile-warnings=no
 
@@ -85,18 +84,19 @@ files to allow you to develop with Mutter.
 %find_lang %{name} 
 
 %files -f %{name}.lang
-%doc README COPYING NEWS HACKING 
+%doc COPYING NEWS
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/GConf/gsettings/mutter-schemas.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.mutter.wayland.gschema.xml
 %{_datadir}/gnome-control-center/keybindings/*.xml
-%{_datadir}/gnome/wm-properties/%{name}-wm.desktop
-%{_datadir}/%{name}
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/default.so
 %{_mandir}/man1/*
+%{_libexecdir}/mutter-restart-helper
+%{_datadir}/applications/mutter-wayland.desktop
 
 %files -n %{libname}
 %{_libdir}/libmutter.so.%{major}*
@@ -105,7 +105,6 @@ files to allow you to develop with Mutter.
 %{_libdir}/%{name}/Meta-%{api}.typelib
 
 %files -n %{devname}
-%doc ChangeLog
 %doc %{_datadir}/gtk-doc/html/meta
 %{_libdir}/*.so
 %{_includedir}/*
