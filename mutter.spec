@@ -9,7 +9,7 @@
 
 Summary:	Mutter window manager
 Name:		mutter
-Version:	3.14.1
+Version:	 3.16.1.1
 Release:	2
 License:	GPLv2+
 Group:		Graphical desktop/GNOME
@@ -48,7 +48,7 @@ BuildRequires:  pkgconfig(libudev)
 Requires:	zenity
 
 %description
-Mutter is a simple window manager that integrates nicely with 
+Mutter is a simple window manager that integrates nicely with
 GNOME.
 
 %package -n %{libname}
@@ -73,7 +73,7 @@ Requires:	%{girname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n %{devname}
-This package provides the necessary development libraries and include 
+This package provides the necessary development libraries and include
 files to allow you to develop with Mutter.
 
 %prep
@@ -88,7 +88,7 @@ files to allow you to develop with Mutter.
 
 %install
 %makeinstall_std
-%find_lang %{name} 
+%find_lang %{name}
 
 %files -f %{name}.lang
 %doc COPYING NEWS
