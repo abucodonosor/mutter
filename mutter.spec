@@ -10,7 +10,7 @@
 Summary:	Mutter window manager
 Name:		mutter
 Version:	 3.16.1.1
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://ftp.gnome.org/pub/gnome/sources/mutter/
