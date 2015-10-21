@@ -1,4 +1,6 @@
 %define _disable_ld_no_undefined 1
+%define _disable_rebuild_configure 1
+
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 
 %define api 3.0
@@ -9,8 +11,8 @@
 
 Summary:	Mutter window manager
 Name:		mutter
-Version:	 3.18.1
-Release:	3
+Version:	3.18.1
+Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://ftp.gnome.org/pub/gnome/sources/mutter/
@@ -112,7 +114,6 @@ files to allow you to develop with Mutter.
 %{_libdir}/%{name}/Meta-%{api}.typelib
 
 %files -n %{devname}
-%doc %{_datadir}/gtk-doc/html/meta
 %{_libdir}/*.so
 %{_includedir}/*
 %{_libdir}/pkgconfig/*
