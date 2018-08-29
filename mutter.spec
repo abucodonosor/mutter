@@ -46,6 +46,7 @@ BuildRequires:	pkgconfig(xkbfile)
 BuildRequires:	pkgconfig(xkeyboard-config)
 BuildRequires:	pkgconfig(xrender)
 BuildRequires:  pkgconfig(libudev)
+BuildRequires:	pkgconfig(xtst)
 
 Requires:	zenity
 
