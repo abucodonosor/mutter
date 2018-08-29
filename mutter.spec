@@ -17,6 +17,8 @@ License:	GPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://ftp.gnome.org/pub/gnome/sources/mutter/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/mutter/%{url_ver}/%{name}-%{version}.tar.xz
+Patch0:		mutter-disable-cast-align.patch
+Patch1:		fix-string-format.patch
 
 BuildRequires:	intltool
 BuildRequires:	zenity
@@ -82,6 +84,7 @@ files to allow you to develop with Mutter.
 
 %prep
 %setup -q
+%apply_patches
 
 %build
 %configure \
