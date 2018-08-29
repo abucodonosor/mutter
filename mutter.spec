@@ -87,6 +87,8 @@ files to allow you to develop with Mutter.
 %apply_patches
 
 %build
+# fix error when building:
+export CFLAGS="$CLAGS -Wno-error=sign-compare"
 %configure \
 	--disable-scrollkeeper \
 	--enable-compile-warnings=no
