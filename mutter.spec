@@ -1,5 +1,6 @@
 %define _disable_ld_no_undefined 1
 %define _disable_rebuild_configure 1
+%define Werror_cflags %nil
 
 %define url_ver %(echo %{version}|cut -d. -f1,2)
 
