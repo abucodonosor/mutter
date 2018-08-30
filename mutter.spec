@@ -93,6 +93,7 @@ export CFLAGS="$CLAGS -Wno-error=sign-compare"
 %configure \
 	--disable-scrollkeeper \
 	--enable-compile-warnings=no
+	--disable-Werror
 
 %make
 
